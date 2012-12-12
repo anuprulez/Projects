@@ -169,7 +169,7 @@ function writeValues(getValue){
 
 //////////////////// Practice code starts //////////////////////////////////////////////////////////////////////////
 
-function sample(){
+/*function sample(){
     /*var book = {
     name: 'Catch-22',
     published: 1961,
@@ -208,7 +208,7 @@ function sample(){
      //alert(book.author.doWork());
      //alert(animal.legs.fingers);
 
-     function Person(name){
+     /*function Person(name){
         // private variable and function
         var age = 100;
         // private function
@@ -304,4 +304,4 @@ function sample(){
 
      var circleArea = new Circle(10);
      circleArea.getArea();
-}
+}*/
