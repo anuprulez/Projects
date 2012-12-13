@@ -187,7 +187,7 @@ function evaluate(posOperator,operatorType){
      // takes the right part of the string i.e. the second number
      secondNumber = textBoxObject.value.substring(posOperator+1, resultLength);
      // divides the numbers
-     if(operatorType == '/'){
+     if(operatorType === '/'){
           if(parseFloat(secondNumber) > 0){
                if(!isNaN(eval(parseFloat(firstNumber) + operatorType + parseFloat(secondNumber)))){
                    textBoxObject.value = eval(parseFloat(firstNumber) + operatorType + parseFloat(secondNumber));
@@ -199,7 +199,7 @@ function evaluate(posOperator,operatorType){
           }
      }
      // evaluates the exponent operator
-     else if(operatorType == '^'){
+     else if(operatorType === '^'){
         textBoxObject.value = Math.pow(parseFloat(firstNumber),parseFloat(secondNumber));
      }
      // evaluates the +, - and * operators
