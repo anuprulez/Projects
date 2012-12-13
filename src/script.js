@@ -45,8 +45,8 @@ function writeValues(getValue){
                 posExponent = textBoxObject.value.indexOf("^");
                 posPeriod = textBoxObject.value.indexOf(".");
                 // avoids the two mathematical operators
-                if(textBoxObject.value != "" && posPlus == -1 && (posMinus == -1 || posMinus == 0) && posMultiply == -1 && posDivide == -1
-                && posExponent == -1 && posPeriod >= -1){
+                if(textBoxObject.value !== "" && posPlus === -1 && (posMinus === -1 || posMinus === 0) && posMultiply === -1 && posDivide === -1
+                && posExponent === -1 && posPeriod >= -1){
                     textBoxObject.value = textBoxObject.value + valueButtonClicked;
                 }
 
@@ -71,13 +71,13 @@ function writeValues(getValue){
               break;
               case "sqrt":
               // calculates the square root of the number
-              if(!isNaN(textBoxObject.value) && textBoxObject.value != "" && parseFloat(textBoxObject.value) >= 0){
+              if(!isNaN(textBoxObject.value) && textBoxObject.value !== "" && parseFloat(textBoxObject.value) >= 0){
                     textBoxObject.value = Math.sqrt(parseFloat(textBoxObject.value)) ;
               }
               break;
               case "1/x":
               // calculates the reciprocal of the number
-              if(!isNaN(textBoxObject.value) && textBoxObject.value != ""){
+              if(!isNaN(textBoxObject.value) && textBoxObject.value !== ""){
                    textBoxObject.value = 1/parseFloat(textBoxObject.value) ;
               }
               break;
@@ -169,10 +169,10 @@ function calculate(operator){
       }
       // appends the operator to the end of evaluated expression
       // also avoids the duplication of the mathematical operators
-      if(operator != 'calculate'){
+      if(operator !== 'calculate'){
          var lastOperator = textBoxObject.value.substring(textBoxObject.value.length-1, textBoxObject.value.length);
-         if(lastOperator != "+" && lastOperator != "-" && lastOperator != "*" && lastOperator != "/" && lastOperator != "^")   {
-            if(textBoxObject.value != 'Infinite'){
+         if(lastOperator !== "+" && lastOperator !== "-" && lastOperator !== "*" && lastOperator !== "/" && lastOperator !== "^")   {
+            if(textBoxObject.value !== 'Infinite'){
                 textBoxObject.value = textBoxObject.value + operator;
             }
          }
