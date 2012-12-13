@@ -121,27 +121,23 @@ function calculate(operator){
             var lastIndexExponent = textBoxObject.value.lastIndexOf("^");
             // handles the case of two minus
             if(lastIndexMinus > 0){
-                firstNumber = textBoxObject.value.substring(0, lastIndexMinus);
-                secondNumber = textBoxObject.value.substring(lastIndexMinus+1, resultLength);
-                if(!isNaN(parseFloat(firstNumber) - parseFloat(secondNumber))){
-                     textBoxObject.value = parseFloat(firstNumber) - parseFloat(secondNumber);
-                }
+                evaluate(lastIndexMinus, "-");
             }
             // handles the case of one minus and one plus
             else if(lastIndexPlus > 0){
-                firstNumber = textBoxObject.value.substring(0, lastIndexPlus);
-                secondNumber = textBoxObject.value.substring(lastIndexPlus+1, resultLength);
-                if(!isNaN(parseFloat(firstNumber) + parseFloat(secondNumber))){
-                     textBoxObject.value = parseFloat(firstNumber) + parseFloat(secondNumber);
-                }
+                evaluate(lastIndexMinus, "+");
             }
             // handles the case of one minus and one division
             else if(lastIndexDivide > 0){
-                firstNumber = textBoxObject.value.substring(0, lastIndexDivide);
-                secondNumber = textBoxObject.value.substring(lastIndexDivide+1, resultLength);
-                if(!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))){
-                     textBoxObject.value = parseFloat(firstNumber) / parseFloat(secondNumber);
-                }
+                evaluate(lastIndexMinus, "/");
+            }
+            // handles the case of one minus and one multiply
+            else if(lastIndexMultiply){
+                evaluate(lastIndexMinus, "*");
+            }
+            // handles the case of one minus and one exponent
+            else if(lastIndexExponent){
+                evaluate(lastIndexMinus, "^");
             }
         }
         else{
