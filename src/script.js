@@ -45,13 +45,13 @@ function writeValues(getValue){
                 posExponent = textBoxObject.value.indexOf("^");
                 posPeriod = textBoxObject.value.indexOf(".");
                 // avoids the two mathematical operators
-                if(textBoxObject.value !== "" && posPlus === -1 && (posMinus === -1 || posMinus === 0) && posMultiply === -1 && posDivide === -1
+                if(textBoxObject.value !== "" && posPlus === -1 && posMinus === -1 && posMultiply === -1 && posDivide === -1
                 && posExponent === -1 && posPeriod >= -1){
                     textBoxObject.value = textBoxObject.value + valueButtonClicked;
                 }
 
                 // evaluates the previous expression if any new operator is clicked
-                if(posPlus > 0 || posMinus > 0 || posMultiply > 0 || posDivide > 0 || posExponent > 0){
+                if(posPlus > 0 || posMinus >= 0 || posMultiply > 0 || posDivide > 0 || posExponent > 0){
                     calculate(valueButtonClicked);
                 }
                break;
@@ -115,29 +115,29 @@ function calculate(operator){
         // if the expression starts with a negative number and followed by some other operator
         if(posMinus == 0){
             var lastIndexMinus = textBoxObject.value.lastIndexOf("-");
-            var lastIndexPlus = textBoxObject.value.lastIndexOf("+");
-            var lastIndexDivide = textBoxObject.value.lastIndexOf("/");
-            var lastIndexMultiply = textBoxObject.value.lastIndexOf("*");
-            var lastIndexExponent = textBoxObject.value.lastIndexOf("^");
+            var lastIndexPlus = textBoxObject.value.indexOf("+");
+            var lastIndexDivide = textBoxObject.value.indexOf("/");
+            var lastIndexMultiply = textBoxObject.value.indexOf("*");
+            var lastIndexExponent = textBoxObject.value.indexOf("^");
             // handles the case of two minus
             if(lastIndexMinus > 0){
                 evaluate(lastIndexMinus, "-");
             }
             // handles the case of one minus and one plus
             else if(lastIndexPlus > 0){
-                evaluate(lastIndexMinus, "+");
+                evaluate(lastIndexPlus, "+");
             }
             // handles the case of one minus and one division
             else if(lastIndexDivide > 0){
-                evaluate(lastIndexMinus, "/");
+                evaluate(lastIndexDivide, "/");
             }
             // handles the case of one minus and one multiply
             else if(lastIndexMultiply){
-                evaluate(lastIndexMinus, "*");
+                evaluate(lastIndexMultiply, "*");
             }
             // handles the case of one minus and one exponent
             else if(lastIndexExponent){
-                evaluate(lastIndexMinus, "^");
+                evaluate(lastIndexExponent, "^");
             }
         }
         else{
