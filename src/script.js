@@ -1,15 +1,15 @@
 // calls when any button
 // on the calculator is clicked and
 // performs appropriate/ intended actions
+var posPlus;
+var posMinus;
+var posMultiply;
+var posDivide;
+var posExponent;
+var posPeriod;
+var firstNumber = 0;
+var secondNumber = 0;
 function writeValues(getValue){
-        var firstNumber = 0;
-        var secondNumber = 0;
-        var posPlus;
-        var posMinus;
-        var posMultiply;
-        var posDivide;
-        var posExponent;
-        var posPeriod;
         var valueButtonClicked = getValue.value;
         // gets the object of result text box
         var textBoxObject = document.getElementById('txtResult');
@@ -44,94 +44,19 @@ function writeValues(getValue){
                 posDivide = textBoxObject.value.indexOf("/");
                 posExponent = textBoxObject.value.indexOf("^");
                 posPeriod = textBoxObject.value.indexOf(".");
-               // avoids the two mathematical operators
-               if(textBoxObject.value != "" && posPlus == -1 && (posMinus == -1 || posMinus == 0) && posMultiply == -1 && posDivide == -1
-               && posExponent == -1 && posPeriod >= -1){
-                    //if(posPeriod > -1){
-                        //if((posPlus >= -1 && posPeriod < posPlus) || (posMinus >= -1 && posPeriod < posMinus) || (posMultiply >= -1 && posPeriod < posMultiply)
-                        //|| (posDivide > -1 && posPeriod < posDivide) || (posExponent > -1 && posPeriod < posExponent))
-                        //textBoxObject.value = textBoxObject.value + valueButtonClicked;
-                    //}
-                    //else{
-
-                    //}
+                // avoids the two mathematical operators
+                if(textBoxObject.value != "" && posPlus == -1 && (posMinus == -1 || posMinus == 0) && posMultiply == -1 && posDivide == -1
+                && posExponent == -1 && posPeriod >= -1){
                     textBoxObject.value = textBoxObject.value + valueButtonClicked;
-               }
+                }
+
+                // evaluates the previous expression if any new operator is clicked
+                if(posPlus > 0 || posMinus > 0 || posMultiply > 0 || posDivide > 0 || posExponent > 0){
+                    calculate(valueButtonClicked);
+                }
                break;
             case "=":
-                var resultLength =  textBoxObject.value.length;
-                // finds the position of mathematical operators
-                posPlus =  textBoxObject.value.indexOf("+");
-                posMinus =  textBoxObject.value.indexOf("-");
-                posMultiply = textBoxObject.value.indexOf("*");
-                posDivide = textBoxObject.value.indexOf("/");
-                posExponent = textBoxObject.value.indexOf("^");
-                // adds two numbers
-                if(posPlus > 0){
-                   // takes the left part of the string i.e the first number
-                   firstNumber =  textBoxObject.value.substring(0, posPlus);
-                   // takes the right part of the string i.e. the second number
-                   secondNumber = textBoxObject.value.substring(posPlus+1, resultLength);
-                   // adds the numbers
-                   if(!isNaN(parseFloat(firstNumber) + parseFloat(secondNumber))){
-                        textBoxObject.value = parseFloat(firstNumber) + parseFloat(secondNumber);
-                   }
-                }
-                // subtract the two numbers
-                else if(posMinus > 0){
-                   // takes the left part of the string i.e the first number
-                   firstNumber =  textBoxObject.value.substring(0, posMinus);
-                   // takes the right part of the string i.e. the second number
-                   secondNumber = textBoxObject.value.substring(posMinus+1, resultLength);
-                   // subtract the numbers
-                   if(!isNaN(parseFloat(firstNumber) - parseFloat(secondNumber))){
-                        textBoxObject.value = parseFloat(firstNumber) - parseFloat(secondNumber);
-                   }
-                }
-                // multiplies the two numbers
-                else if(posMultiply > 0){
-                   // takes the left part of string
-                   firstNumber =  textBoxObject.value.substring(0, posMultiply);
-                   // takes the right part of the string
-                   secondNumber = textBoxObject.value.substring(posMultiply+1, resultLength);
-                   // multiplies the numbers
-                   if(!isNaN(parseFloat(firstNumber) * parseFloat(secondNumber))){
-                        textBoxObject.value = parseFloat(firstNumber) * parseFloat(secondNumber);
-                   }
-                }
-                // divides the two numbers
-                 else if(posDivide > 0){
-                   // takes the left part of the string
-                   firstNumber =  textBoxObject.value.substring(0, posDivide);
-                   // takes the right part of the string
-                   secondNumber = textBoxObject.value.substring(posDivide+1, resultLength);
-                   // divides the numbers
-                   // checks if the denominator is 0 or not
-                   if(parseFloat(secondNumber) > 0){
-                        if(!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))){
-                            textBoxObject.value = parseFloat(firstNumber) / parseFloat(secondNumber);
-                        }
-                        // for restricting the number of digits after the period
-                        //var posPeriod = textBoxObject.value.indexOf(".");
-                        //if(posPeriod > 0){
-                        //}
-                   }
-                   // if the denominator is zero, result text box give 'infinite' text
-                   else{
-                        textBoxObject.value = "Infinite";
-                   }
-                 }
-                 // multiplies the two numbers
-                 else if(posExponent > 0){
-                    // takes the left part of string
-                    firstNumber =  textBoxObject.value.substring(0, posExponent);
-                    // takes the right part of the string
-                    secondNumber = textBoxObject.value.substring(posExponent+1, resultLength);
-                    // multiplies the numbers
-                    if(!isNaN(parseFloat(firstNumber) ^ parseFloat(secondNumber))){
-                         textBoxObject.value = Math.pow(parseFloat(firstNumber),parseFloat(secondNumber));
-                    }
-                 }
+                calculate('calculate');
                 break;
             case "C":
                // clears the result text box
@@ -162,9 +87,130 @@ function writeValues(getValue){
                    textBoxObject.value = Math.log(parseFloat(textBoxObject.value)) ;
               }
               break;
-
         }
 }
+
+// evaluates the expression written in the result textbox
+function calculate(operator){
+     var textBoxObject = document.getElementById('txtResult');
+     var resultLength =  textBoxObject.value.length;
+     var finalOperator = '';
+     // finds the position of mathematical operators
+     posPlus =  textBoxObject.value.indexOf("+");
+     posMinus =  textBoxObject.value.indexOf("-");
+     posMultiply = textBoxObject.value.indexOf("*");
+     posDivide = textBoxObject.value.indexOf("/");
+     posExponent = textBoxObject.value.indexOf("^");
+
+     // adds two numbers
+     if(posPlus > 0){
+        // takes the left part of the string i.e the first number
+        firstNumber =  textBoxObject.value.substring(0, posPlus);
+        // takes the right part of the string i.e. the second number
+        secondNumber = textBoxObject.value.substring(posPlus+1, resultLength);
+        // adds the numbers
+        if(!isNaN(parseFloat(firstNumber) + parseFloat(secondNumber))){
+             textBoxObject.value = parseFloat(firstNumber) + parseFloat(secondNumber);
+        }
+     }
+     // subtract the two numbers
+     else if(posMinus >=0){
+        var removedObj = '';
+        // if the expression starts with a negative number and followed by some other operator
+        if(posMinus == 0){
+            var lastIndexMinus = textBoxObject.value.lastIndexOf("-");
+            var lastIndexPlus = textBoxObject.value.lastIndexOf("+");
+            var lastIndexDivide = textBoxObject.value.lastIndexOf("/");
+            var lastIndexMultiply = textBoxObject.value.lastIndexOf("*");
+            var lastIndexExponent = textBoxObject.value.lastIndexOf("^");
+            // handles the case of two minus
+            if(lastIndexMinus > 0){
+                firstNumber = textBoxObject.value.substring(0, lastIndexMinus);
+                secondNumber = textBoxObject.value.substring(lastIndexMinus+1, resultLength);
+                if(!isNaN(parseFloat(firstNumber) - parseFloat(secondNumber))){
+                     textBoxObject.value = parseFloat(firstNumber) - parseFloat(secondNumber);
+                }
+            }
+            // handles the case of one minus and one plus
+            else if(lastIndexPlus > 0){
+                firstNumber = textBoxObject.value.substring(0, lastIndexPlus);
+                secondNumber = textBoxObject.value.substring(lastIndexPlus+1, resultLength);
+                if(!isNaN(parseFloat(firstNumber) + parseFloat(secondNumber))){
+                     textBoxObject.value = parseFloat(firstNumber) + parseFloat(secondNumber);
+                }
+            }
+            // handles the case of one minus and one division
+            else if(lastIndexDivide > 0){
+                firstNumber = textBoxObject.value.substring(0, lastIndexDivide);
+                secondNumber = textBoxObject.value.substring(lastIndexDivide+1, resultLength);
+                if(!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))){
+                     textBoxObject.value = parseFloat(firstNumber) / parseFloat(secondNumber);
+                }
+            }
+        }
+        else{
+            // takes the left part of the string i.e the first number
+            firstNumber =  textBoxObject.value.substring(0, posMinus);
+            // takes the right part of the string i.e. the second number
+            secondNumber = textBoxObject.value.substring(posMinus+1, resultLength);
+            // subtract the numbers
+            if(!isNaN(parseFloat(firstNumber) - parseFloat(secondNumber))){
+                 textBoxObject.value = parseFloat(firstNumber) - parseFloat(secondNumber);
+            }
+        }
+     }
+     // multiplies the two numbers
+     else if(posMultiply > 0){
+        // takes the left part of string
+        firstNumber =  textBoxObject.value.substring(0, posMultiply);
+        // takes the right part of the string
+        secondNumber = textBoxObject.value.substring(posMultiply+1, resultLength);
+        // multiplies the numbers
+        if(!isNaN(parseFloat(firstNumber) * parseFloat(secondNumber))){
+              textBoxObject.value = parseFloat(firstNumber) * parseFloat(secondNumber);
+        }
+     }
+     // divides the two numbers
+      else if(posDivide > 0){
+        // takes the left part of the string
+        firstNumber =  textBoxObject.value.substring(0, posDivide);
+        // takes the right part of the string
+        secondNumber = textBoxObject.value.substring(posDivide+1, resultLength);
+        // divides the numbers
+        // checks if the denominator is 0 or not
+        if(parseFloat(secondNumber) > 0){
+             if(!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))){
+                 textBoxObject.value = parseFloat(firstNumber) / parseFloat(secondNumber);
+             }
+        }
+        // if the denominator is zero, result text box give 'infinite' text
+        else{
+             textBoxObject.value = "Infinite";
+        }
+      }
+      // multiplies the two numbers
+      else if(posExponent > 0){
+         // takes the left part of string
+         firstNumber =  textBoxObject.value.substring(0, posExponent);
+         // takes the right part of the string
+         secondNumber = textBoxObject.value.substring(posExponent+1, resultLength);
+         // multiplies the numbers
+         if(!isNaN(parseFloat(firstNumber) ^ parseFloat(secondNumber))){
+              textBoxObject.value = Math.pow(parseFloat(firstNumber),parseFloat(secondNumber));
+         }
+      }
+      // appends the operator to the end of evaluated expression
+      // also avoids the duplication of the mathematical operators
+      if(operator != 'calculate'){
+         var lastOperator = textBoxObject.value.substring(textBoxObject.value.length-1, textBoxObject.value.length);
+         if(lastOperator != "+" && lastOperator != "-" && lastOperator != "*" && lastOperator != "/" && lastOperator != "^")   {
+            if(textBoxObject.value != 'Infinite'){
+                textBoxObject.value = textBoxObject.value + operator;
+            }
+         }
+      }
+}
+
 ///////////// Calculator code ends /////////////////////////////////////////////////////////////////////////////////
 
 //////////////////// Practice code starts //////////////////////////////////////////////////////////////////////////
@@ -270,6 +316,7 @@ function writeValues(getValue){
 
       //Suan1.helpMe();
 
+
       // Polymorphism - baseClass and child class have the same method name with different
       // implementation
       //Suan1.privilegeWork();
@@ -287,21 +334,62 @@ function writeValues(getValue){
      function Area(shapeName){
         this.shape = shapeName;
         this.getArea = getArea;
-
+        var areaMessage = 'Area getting calculated';
+        //public method of base class
         function getArea(){
+            alert(areaMessage);
             alert('Area of the '+ this.shape +' is: ' + this.area);
         }
+        // privileged method of base class
+        Area.prototype.getMessage = function(){
+            alert('Inside the privileged method of base class');
+        }
      }
-
-     Circle.prototype = new Area('circle');
-     Circle.prototype.constructor = Circle;
-     Circle.prototype.baseClass = Area.prototype.constructor;
-
+     // child class inheritance
+     //Circle.prototype = new Area('circle');
+     //Circle.prototype.constructor = Circle;
+     // assigning the base class constructor to child class
+     //Circle.prototype.baseClass = Area.prototype.constructor;
+     // child class declaration
      function Circle(radius){
-        this.area = 3.14 * (Math.pow(radius,2));
+        //this.area = 3.14 * (Math.pow(radius,2));
+        this.len = 5;
+        this.rad = this.rad + 1;
+        alert('The radius of the circle is '+ this.rad + 'and the length is fine: '+ this.len);
      }
 
+     // creating first object of child class
+     //var circleArea = new Circle(10);
+     //circleArea.getArea();
+     //circleArea.getMessage();
 
-     var circleArea = new Circle(10);
-     circleArea.getArea();
-}*/
+     // Usage of Call and Apply method
+     var circle1 = new Object();
+     circle1.rad = 20;
+     //Circle.call(circle1, 20);
+     //Circle.apply(circle1, [20]);
+
+     // Closures in JavaScript
+     // Objects are alive even after the function has returned
+     function getInformation(info){
+        this.getMessage = 'Final Message';
+
+        alert(this.getMessage + ' and Closures are defined');
+        return info;
+     }
+     var saveInformation = getInformation('All Information');
+     saveInformation();
+
+
+     /*window.onError = function(){
+             alert('error occurred');
+     }
+
+     var newErrorFunction = function(){
+        alert('alert error');
+     }
+     newErrorFunction();
+     //document.write('sdfsdf
+     //alert('Get some errors'  */
+//}
+////////////////////////////////////// Practice code ends ////////////////////////////////////////////////////////
