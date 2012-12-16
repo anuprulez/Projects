@@ -3,52 +3,18 @@
 <head>
     <title>My Calculator</title>
     <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-   Simple Calculator
-   <div id="divCalculator">
-
-         <input type="text" id="txtResult" maxlength="15"/>
-         <br/>
-         <table id="tblCalculator">
-             <tr>
-                 <td><input type="button" class="clsButton clsNumber" value="7" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsNumber" value="8" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsNumber" value="9" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsOperator" value="+" onclick="writeValues(this)" title="Add"></td>
-                 <td><input type="button" class="clsButton clsOperator" value="^" onclick="writeValues(this)" title="Power"></td>
-                 <td><input type="button" class="clsButton clsSingleOp" value="sqrt" onclick="writeValues(this)" title="Square root (x^(1/2))"></td>
-             </tr>
-             <tr>
-                 <td><input type="button" class="clsButton clsNumber" value="4" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsNumber" value="5" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsNumber" value="6" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsOperator" value="-" onclick="writeValues(this)" title="Subtract"></td>
-                 <td><input type="button" class="clsButton clsBack" value="B" onclick="writeValues(this)" title="Backspace"></td>
-                 <td><input type="button" class="clsButton clsSingleOp" value="1/x" onclick="writeValues(this)" title="Reciprocal"></td>
-             </tr>
-             <tr>
-                 <td><input type="button" class="clsButton clsNumber" value="1" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsNumber" value="2" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsNumber" value="3" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsOperator" value="/" onclick="writeValues(this)" title="Divide"></td>
-                 <td><input type="button" class="clsButton clsOperator" value="." onclick="writeValues(this)" title="Decimal"></td>
-                 <td><input type="button" class="clsButton clsSingleOp" value="log" onclick="writeValues(this)" title="Log"></td>
-
-             </tr>
-             <tr>
-                 <td><input type="button" class="clsButton clsNumber" value="0" onclick="writeValues(this)"></td>
-                 <td><input type="button" class="clsButton clsClear" value="C" onclick="writeValues(this)" title="Clear"></td>
-                 <td><input type="button" class="clsButton clsOperator" value="=" onclick="writeValues(this)" title="Equals"></td>
-                 <td><input type="button" class="clsButton clsOperator" value="*" onclick="writeValues(this)" title="Multiply"></td>
-                 <td><input type="button" class="clsButton clsNumber" value="00" onclick="writeValues(this)"></td>
-                 <td></td>
-             </tr>
-         </table>
-   </div>
-   <!--<br/>     <br/>
-   <input type="button" id="btnSampleCode" value="sampleCode" onclick="sample()">  -->
-
+Simple Calculator
+<div id="divCalculator">
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // creates the calculator
+        generateCalculator();
+    });
+</script>
 </body>
 </html>
