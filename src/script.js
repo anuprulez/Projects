@@ -17,7 +17,7 @@ function generateCalculator() {
 }
 // create elements in the calculator
 function createTableElements(numberRange, classNamesArray, operatorsArray, divContainer) {
-    var counter, tableData, min, max, rangeSplit, table, tableRow, classNameNumber, start, end, firstTableRow, secondTableRow, thirdTableRow, fourthTableRow;
+    var counter, tableData, min, max, rangeSplit, table, classNameNumber, start, end, firstTableRow, secondTableRow, thirdTableRow, fourthTableRow;
     // creates the table object
     table = document.createElement('table');
     // creates first row of the calculator
@@ -30,13 +30,11 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates the numbers
     classNameNumber = 'clsButton ' + classNamesArray[0];
     createNumberButtons(max - 2, max, classNameNumber, firstTableRow);
-
     // creates buttons of operators for the first row
+        // creates operators
     start = 0;
     end = 2;
-    // creates operators
     createOperatorButtons(start, end, classNamesArray, operatorsArray, firstTableRow, table);
-    // appends the row to the table object
 
     // creates second table row
     // creates the numbers
@@ -64,7 +62,6 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     end = 11;
     // creates operators
     createOperatorButtons(start, end, classNamesArray, operatorsArray, fourthTableRow, table);
-
     // appends the table to the div object
     divContainer.appendChild(table);
 }
@@ -163,33 +160,41 @@ function evaluate(posOperator, operatorType) {
     var firstNumber =  textBoxObject.value.substring(0, posOperator);
     // takes the right part of the string i.e. the second number
     var secondNumber = textBoxObject.value.substring(posOperator + 1, resultLength);
-    // divides the numbers
-    if (operatorType === '/') {
-        if (parseFloat(secondNumber) > 0){
-            if (!isNaN(eval(parseFloat(firstNumber) + operatorType + parseFloat(secondNumber)))) {
-                textBoxObject.value = eval(parseFloat(firstNumber) + operatorType + parseFloat(secondNumber));
+    // checks for the operator and performs appropriate actions
+    switch(operatorType){
+        case '/':
+            if (parseFloat(secondNumber) > 0){
+                if (!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))) {
+                    textBoxObject.value = parseFloat(firstNumber) / parseFloat(secondNumber);
+                }
             }
-        }
-        // if the denominator is zero, result text box give 'infinite' text
-        else{
-            textBoxObject.value = "Infinite";
-        }
-    }
-    // evaluates the exponent operator
-    else if (operatorType === '^') {
-        // gets the value of the expression using Math.pow
-        evaluatedExponentNumber = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
-        // checks if that is a number
-        if (!isNaN(evaluatedExponentNumber)) {
-            textBoxObject.value = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
-        }
-
-    }
-    // evaluates the +, - and * operators
-    else {
-        if (!isNaN(eval(parseFloat(firstNumber) + operatorType +  parseFloat(secondNumber)))) {
-            textBoxObject.value = eval(parseFloat(firstNumber) + operatorType + parseFloat(secondNumber));
-        }
+        break;
+        case '^':
+            // gets the value of the expression using Math.pow
+            evaluatedExponentNumber = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
+            // checks if that is a number
+            if (!isNaN(evaluatedExponentNumber)) {
+                textBoxObject.value = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
+            }
+        break;
+        case '+':
+            // checks if that is a number
+            if (!isNaN(parseFloat(firstNumber) + parseFloat(secondNumber))) {
+                textBoxObject.value = parseFloat(firstNumber) + parseFloat(secondNumber);
+            }
+        break;
+        case '-':
+            // checks if that is a number
+            if (!isNaN(parseFloat(firstNumber) - parseFloat(secondNumber))) {
+                textBoxObject.value = parseFloat(firstNumber) - parseFloat(secondNumber);
+            }
+        break;
+        case '*':
+            // checks if that is a number
+            if (!isNaN(parseFloat(firstNumber) * parseFloat(secondNumber))) {
+                textBoxObject.value = parseFloat(firstNumber) * parseFloat(secondNumber);
+            }
+        break;
     }
 }
 
