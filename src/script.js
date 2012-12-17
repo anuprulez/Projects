@@ -55,8 +55,6 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates the numbers
     fourthTableRow = document.createElement('tr');
     createNumberButtons(max - 9, max - 9, classNameNumber, fourthTableRow);
-    //start = 9;
-    //end = 11;
     // creates operators
     createOperatorButtons(start + 9, end + 9, classNamesArray, operatorsArray, fourthTableRow, table);
     // appends the table to the div object
@@ -177,6 +175,9 @@ function evaluate(posOperator, operatorType) {
                     if (!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))) {
                         resultNumber = parseFloat(firstNumber) / parseFloat(secondNumber);
                     }
+                }
+                else{
+                    resultNumber = 'Infinite';
                 }
             break;
             case '^':
