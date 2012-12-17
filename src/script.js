@@ -20,51 +20,50 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     var counter, tableData, min, max, rangeSplit, table, classNameNumber, start, end, firstTableRow, secondTableRow, thirdTableRow, fourthTableRow;
     // creates the table object
     table = document.createElement('table');
-    // creates first row of the calculator
-    firstTableRow = document.createElement('tr');
     // splits the number range
     rangeSplit = numberRange.split('-');
     min = rangeSplit[0];
     max = rangeSplit[1];
+    // starting and ending position of operators in the operators' array
+    start = 0;
+    end = 2;
     // creates first row
+    // creates first row of the calculator
+    firstTableRow = document.createElement('tr');
     // creates the numbers
     classNameNumber = 'clsButton ' + classNamesArray[0];
     createNumberButtons(max - 2, max, classNameNumber, firstTableRow);
     // creates buttons of operators for the first row
-        // creates operators
-    start = 0;
-    end = 2;
+    // creates operators
     createOperatorButtons(start, end, classNamesArray, operatorsArray, firstTableRow, table);
 
     // creates second table row
     // creates the numbers
     secondTableRow = document.createElement('tr');
     createNumberButtons(max - 5, max - 3, classNameNumber, secondTableRow);
-    start = 3;
-    end = 5;
     // creates operators
-    createOperatorButtons(start, end, classNamesArray, operatorsArray, secondTableRow, table);
+    createOperatorButtons(start + 3, end + 3, classNamesArray, operatorsArray, secondTableRow, table);
 
     // creates third table row
     // creates the numbers
     thirdTableRow = document.createElement('tr');
     createNumberButtons(max - 8, max - 6, classNameNumber, thirdTableRow);
-    start = 6;
-    end = 8;
     // creates operators
-    createOperatorButtons(start, end, classNamesArray, operatorsArray, thirdTableRow, table);
+    createOperatorButtons(start + 6, end + 6, classNamesArray, operatorsArray, thirdTableRow, table);
 
     // creates fourth table row
     // creates the numbers
     fourthTableRow = document.createElement('tr');
     createNumberButtons(max - 9, max - 9, classNameNumber, fourthTableRow);
-    start = 9;
-    end = 11;
+    //start = 9;
+    //end = 11;
     // creates operators
-    createOperatorButtons(start, end, classNamesArray, operatorsArray, fourthTableRow, table);
+    createOperatorButtons(start + 9, end + 9, classNamesArray, operatorsArray, fourthTableRow, table);
     // appends the table to the div object
     divContainer.appendChild(table);
 }
+
+
 // creates number buttons
 function createNumberButtons(min, max, classNameNumber, tableRowObj) {
     var counter;
@@ -74,6 +73,7 @@ function createNumberButtons(min, max, classNameNumber, tableRowObj) {
         createTableData(tableData, 'button', classNameNumber, counter, '', tableRowObj);
     }
 }
+
 
 // creates operator buttons
 function createOperatorButtons(start, max, classNames, operatorNames, tableRowObj, tableObj) {
@@ -139,6 +139,7 @@ function createOperatorButtons(start, max, classNames, operatorNames, tableRowOb
         tableObj.appendChild(tableRowObj);
     }
 }
+
 
 // creates table data- td for the table
 function createTableData(tdObject, elementType, className, value, title, tableRowObject) {
@@ -209,6 +210,7 @@ function evaluate(posOperator, operatorType) {
         textBoxObject.value = resultNumber;
     }
 }
+
 
 // checks if mathematical operators exist
 // it takes two parameters, first being the mathematical operator and second being the caseValue as position of
@@ -304,6 +306,7 @@ function findOperatorPosition(expression, caseValue) {
     }
 }
 
+
 // checks for the correct position of operators
 //and calls for the evaluation of the expression
 function verifyExpression(operator) {
@@ -325,6 +328,7 @@ function verifyExpression(operator) {
         }
     }
 }
+
 
 // calls when any button
 // on the calculator is clicked and
