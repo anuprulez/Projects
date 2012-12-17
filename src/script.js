@@ -171,7 +171,7 @@ function evaluate(posOperator, operatorType) {
         // checks for the operator and performs appropriate actions
         switch(operatorType) {
             case '/':
-                if (parseFloat(secondNumber) > 0) {
+                if (parseFloat(secondNumber) >= 0 || parseFloat(secondNumber) < 0) {
                     if (!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))) {
                         resultNumber = parseFloat(firstNumber) / parseFloat(secondNumber);
                     }
