@@ -82,33 +82,27 @@ function createOperatorButtons(start, max, classNames, operatorNames, tableRowOb
         tableData = document.createElement('td');
         // creates number buttons
         className = 'clsButton ' + classNames[1];
+        operator = operatorNames[counter];
         switch (operatorNames[counter]) {
             case '+':
-                operator = operatorNames[counter];
                 title = 'Add';
             break;
             case '^':
-                operator = operatorNames[counter];
                 title = 'Power';
             break;
             case '-':
-                operator = operatorNames[counter];
                 title = 'Subtract';
             break;
             case '/':
-                operator = operatorNames[counter];
                 title = 'Divide';
             break;
             case '.':
-                operator = operatorNames[counter];
                 title = 'Subtract';
             break;
             case '=':
-                operator = operatorNames[counter];
                 title = 'Subtract';
             break;
             case '*':
-                operator = operatorNames[counter];
                 title = 'Subtract';
             break;
             case 'sqrt':
