@@ -1,11 +1,12 @@
 // creates calculator
 function generateCalculator() {
     'use strict';
-    var classNamesArray = ['clsNumber', 'clsOperator', 'clsSingleOp', 'clsBack', 'clsClear'];
-    var operatorsArray = ['+', '^', 'sqrt', '-', 'B', '1/x', '/', '.', 'log', 'C', '=', '*'];
-    var divContainer = document.getElementById('divCalculator');
+    var classNamesArray, operatorsArray, divContainer, txtResult;
+    classNamesArray = ['clsNumber', 'clsOperator', 'clsSingleOp', 'clsBack', 'clsClear'];
+    operatorsArray = ['+', '^', 'sqrt', '-', 'B', '1/x', '/', '.', 'log', 'C', '=', '*'];
+    divContainer = document.getElementById('divCalculator');
     // creates result textbox
-    var txtResult = document.createElement('input');
+    txtResult = document.createElement('input');
     txtResult.type = 'text';
     txtResult.maxLength = 15;
     txtResult.id = 'txtResult';
@@ -86,7 +87,7 @@ function createOperatorButtons(start, max, classNames, operatorNames, tableRowOb
     for (counter = start; counter <= max; counter = counter + 1) {
         tableData = document.createElement('td');
         // creates number buttons
-        className = 'clsButton '+ classNames[1];
+        className = 'clsButton ' + classNames[1];
         switch (operatorNames[counter]) {
             case '+':
                 createTableData(tableData, 'button', className, operatorNames[counter], 'Add', tableRowObj);
@@ -112,7 +113,7 @@ function createOperatorButtons(start, max, classNames, operatorNames, tableRowOb
             case 'sqrt':
             case '1/x':
             case 'log':
-                className = 'clsButton '+ classNames[2];
+                className = 'clsButton ' + classNames[2];
                 if(operatorNames[counter] === 'sqrt') {
                     createTableData(tableData, 'button', className, 'sqrt', 'Square root', tableRowObj);
                 }
@@ -124,11 +125,11 @@ function createOperatorButtons(start, max, classNames, operatorNames, tableRowOb
                 }
             break;
             case 'B':
-                className = 'clsButton '+ classNames[3];
+                className = 'clsButton ' + classNames[3];
                 createTableData(tableData, 'button', className, 'B', 'Backspace', tableRowObj);
             break;
             case 'C':
-                className = 'clsButton '+ classNames[4];
+                className = 'clsButton ' + classNames[4];
                 createTableData(tableData, 'button', className, 'C', 'Clear', tableRowObj);
             break;
         }
