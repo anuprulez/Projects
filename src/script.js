@@ -77,56 +77,70 @@ function createNumberButtons(min, max, classNameNumber, tableRowObj) {
 
 // creates operator buttons
 function createOperatorButtons(start, max, classNames, operatorNames, tableRowObj, tableObj) {
-    var counter, className;
+    var counter, className, operator, title;
     for (counter = start; counter <= max; counter = counter + 1) {
         tableData = document.createElement('td');
         // creates number buttons
         className = 'clsButton ' + classNames[1];
         switch (operatorNames[counter]) {
             case '+':
-                createTableData(tableData, 'button', className, operatorNames[counter], 'Add', tableRowObj);
+                operator = operatorNames[counter];
+                title = 'Add';
             break;
             case '^':
-                createTableData(tableData, 'button', className, operatorNames[counter], 'Power', tableRowObj);
+                operator = operatorNames[counter];
+                title = 'Power';
             break;
             case '-':
-                createTableData(tableData, 'button', className, operatorNames[counter], 'Subtract', tableRowObj);
+                operator = operatorNames[counter];
+                title = 'Subtract';
             break;
             case '/':
-                createTableData(tableData, 'button', className, operatorNames[counter], 'Divide', tableRowObj);
+                operator = operatorNames[counter];
+                title = 'Divide';
             break;
             case '.':
-                createTableData(tableData, 'button', className, operatorNames[counter], 'Decimal', tableRowObj);
+                operator = operatorNames[counter];
+                title = 'Subtract';
             break;
             case '=':
-                createTableData(tableData, 'button', className, operatorNames[counter], 'Equals', tableRowObj);
+                operator = operatorNames[counter];
+                title = 'Subtract';
             break;
             case '*':
-                createTableData(tableData, 'button', className, operatorNames[counter], 'Multiply', tableRowObj);
+                operator = operatorNames[counter];
+                title = 'Subtract';
             break;
             case 'sqrt':
             case '1/x':
             case 'log':
                 className = 'clsButton ' + classNames[2];
                 if (operatorNames[counter] === 'sqrt') {
-                    createTableData(tableData, 'button', className, 'sqrt', 'Square root', tableRowObj);
+                    operator = 'sqrt';
+                    title = 'Square root';
                 }
                 else if (operatorNames[counter] === '1/x') {
-                    createTableData(tableData, 'button', className, '1/x', 'Reciprocal', tableRowObj);
+                    operator = '1/x';
+                    title = 'Reciprocal';
                 }
                 else {
-                    createTableData(tableData, 'button', className, 'log', 'Log', tableRowObj);
+                    operator = 'log';
+                    title = 'Log';
                 }
             break;
             case 'B':
                 className = 'clsButton ' + classNames[3];
-                createTableData(tableData, 'button', className, 'B', 'Backspace', tableRowObj);
+                operator = 'B';
+                title = 'Backspace';
             break;
             case 'C':
                 className = 'clsButton ' + classNames[4];
-                createTableData(tableData, 'button', className, 'C', 'Clear', tableRowObj);
+                operator = 'C';
+                title = 'Clear';
             break;
         }
+        // creates table data- td for the table
+        createTableData(tableData, 'button', className, operator, title, tableRowObj);
         // appends the row to the table object
         tableObj.appendChild(tableRowObj);
     }
@@ -156,16 +170,17 @@ function evaluate(posOperator, operatorType) {
     var textBoxObject = document.getElementById('txtResult');
     var resultLength =  textBoxObject.value.length;
     var evaluatedExponentNumber;
+    var resultNumber;
     // takes the left part of the string i.e the first number
     var firstNumber =  textBoxObject.value.substring(0, posOperator);
     // takes the right part of the string i.e. the second number
     var secondNumber = textBoxObject.value.substring(posOperator + 1, resultLength);
     // checks for the operator and performs appropriate actions
-    switch(operatorType){
+    switch(operatorType) {
         case '/':
-            if (parseFloat(secondNumber) > 0){
+            if (parseFloat(secondNumber) > 0) {
                 if (!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))) {
-                    textBoxObject.value = parseFloat(firstNumber) / parseFloat(secondNumber);
+                    resultNumber = parseFloat(firstNumber) / parseFloat(secondNumber);
                 }
             }
         break;
@@ -174,32 +189,33 @@ function evaluate(posOperator, operatorType) {
             evaluatedExponentNumber = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
             // checks if that is a number
             if (!isNaN(evaluatedExponentNumber)) {
-                textBoxObject.value = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
+                resultNumber = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
             }
         break;
         case '+':
             // checks if that is a number
             if (!isNaN(parseFloat(firstNumber) + parseFloat(secondNumber))) {
-                textBoxObject.value = parseFloat(firstNumber) + parseFloat(secondNumber);
+                resultNumber = parseFloat(firstNumber) + parseFloat(secondNumber);
             }
         break;
         case '-':
             // checks if that is a number
             if (!isNaN(parseFloat(firstNumber) - parseFloat(secondNumber))) {
-                textBoxObject.value = parseFloat(firstNumber) - parseFloat(secondNumber);
+                resultNumber = parseFloat(firstNumber) - parseFloat(secondNumber);
             }
         break;
         case '*':
             // checks if that is a number
             if (!isNaN(parseFloat(firstNumber) * parseFloat(secondNumber))) {
-                textBoxObject.value = parseFloat(firstNumber) * parseFloat(secondNumber);
+                resultNumber = parseFloat(firstNumber) * parseFloat(secondNumber);
             }
         break;
     }
+    textBoxObject.value = resultNumber;
 }
 
 // checks if mathematical operators exist
-// it takes two parametes, first being the mathematical operator and second being the caseValue as position of
+// it takes two parameters, first being the mathematical operator and second being the caseValue as position of
 // operators are needed for different purposes
 function findOperatorPosition(expression, caseValue) {
     //alert(expression);
@@ -258,7 +274,7 @@ function findOperatorPosition(expression, caseValue) {
                         evaluate(posMultiply, "*");
                     }
                     // handles the case of one minus and one exponent
-                    else if (posExponent) {
+                    else if (posExponent > 0) {
                         evaluate(posExponent, "^");
                     }
                 }
@@ -266,6 +282,7 @@ function findOperatorPosition(expression, caseValue) {
                     // evaluates and output the result
                     evaluate(posMinus,'-');
                 }
+
             }
             // multiplies the two numbers
             else if (posMultiply > 0) {
@@ -378,7 +395,7 @@ function writeValues(getValue) {
             }
             else {
                 // calculates the log of the number
-                if(!isNaN(textBoxObject.value) && textBoxObject.value != "" && parseFloat(textBoxObject.value) >= 0) {
+                if(!isNaN(textBoxObject.value) && textBoxObject.value !== "" && parseFloat(textBoxObject.value) >= 0) {
                     textBoxObject.value = Math.log(parseFloat(textBoxObject.value)) ;
                 }
             }
