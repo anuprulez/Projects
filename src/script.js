@@ -164,48 +164,50 @@ function evaluate(posOperator, operatorType) {
     var textBoxObject = document.getElementById('txtResult');
     var resultLength =  textBoxObject.value.length;
     var evaluatedExponentNumber;
-    var resultNumber;
+    var resultNumber, secondNumber, firstNumber;
     // takes the left part of the string i.e the first number
-    var firstNumber =  textBoxObject.value.substring(0, posOperator);
+    firstNumber =  textBoxObject.value.substring(0, posOperator);
     // takes the right part of the string i.e. the second number
-    var secondNumber = textBoxObject.value.substring(posOperator + 1, resultLength);
-    // checks for the operator and performs appropriate actions
-    switch(operatorType) {
-        case '/':
-            if (parseFloat(secondNumber) > 0) {
-                if (!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))) {
-                    resultNumber = parseFloat(firstNumber) / parseFloat(secondNumber);
+    secondNumber = textBoxObject.value.substring(posOperator + 1, resultLength);;
+    if(!isNaN(firstNumber) && secondNumber !== ''){
+        // checks for the operator and performs appropriate actions
+        switch(operatorType) {
+            case '/':
+                if (parseFloat(secondNumber) > 0) {
+                    if (!isNaN(parseFloat(firstNumber) / parseFloat(secondNumber))) {
+                        resultNumber = parseFloat(firstNumber) / parseFloat(secondNumber);
+                    }
                 }
-            }
-        break;
-        case '^':
-            // gets the value of the expression using Math.pow
-            evaluatedExponentNumber = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
-            // checks if that is a number
-            if (!isNaN(evaluatedExponentNumber)) {
-                resultNumber = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
-            }
-        break;
-        case '+':
-            // checks if that is a number
-            if (!isNaN(parseFloat(firstNumber) + parseFloat(secondNumber))) {
-                resultNumber = parseFloat(firstNumber) + parseFloat(secondNumber);
-            }
-        break;
-        case '-':
-            // checks if that is a number
-            if (!isNaN(parseFloat(firstNumber) - parseFloat(secondNumber))) {
-                resultNumber = parseFloat(firstNumber) - parseFloat(secondNumber);
-            }
-        break;
-        case '*':
-            // checks if that is a number
-            if (!isNaN(parseFloat(firstNumber) * parseFloat(secondNumber))) {
-                resultNumber = parseFloat(firstNumber) * parseFloat(secondNumber);
-            }
-        break;
+            break;
+            case '^':
+                // gets the value of the expression using Math.pow
+                evaluatedExponentNumber = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
+                // checks if that is a number
+                if (!isNaN(evaluatedExponentNumber)) {
+                    resultNumber = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
+                }
+            break;
+            case '+':
+                // checks if that is a number
+                if (!isNaN(parseFloat(firstNumber) + parseFloat(secondNumber))) {
+                    resultNumber = parseFloat(firstNumber) + parseFloat(secondNumber);
+                }
+            break;
+            case '-':
+                // checks if that is a number
+                if (!isNaN(parseFloat(firstNumber) - parseFloat(secondNumber))) {
+                    resultNumber = parseFloat(firstNumber) - parseFloat(secondNumber);
+                }
+            break;
+            case '*':
+                // checks if that is a number
+                if (!isNaN(parseFloat(firstNumber) * parseFloat(secondNumber))) {
+                    resultNumber = parseFloat(firstNumber) * parseFloat(secondNumber);
+                }
+            break;
+        }
+        textBoxObject.value = resultNumber;
     }
-    textBoxObject.value = resultNumber;
 }
 
 // checks if mathematical operators exist
@@ -216,6 +218,7 @@ function findOperatorPosition(expression, caseValue) {
     //var operatorRegex = "/[+-*\/.]/";
     //var result = operatorRegex.test(expression);
     //alert('')
+    var operator, posOperator;
     var result = false;
     var posPlus =  expression.indexOf("+");
     var posMinus =  expression.indexOf("-");
@@ -242,8 +245,8 @@ function findOperatorPosition(expression, caseValue) {
         case 2:
             // adds two numbers
             if(posPlus > 0) {
-                // evaluates and output the result
-                evaluate(posPlus,'+');
+                operator = '+';
+                posOperator =  posPlus;
             }
             // subtract the two numbers
             // there can be more than one minus operator( a negative number with another operator with a number)
@@ -253,50 +256,53 @@ function findOperatorPosition(expression, caseValue) {
                 if(posMinus == 0) {
                     // handles the case of two minus
                     if (lastIndexMinus > 0) {
-                        evaluate(lastIndexMinus, "-");
+                        operator = '-';
+                        posOperator =  lastIndexMinus;
                     }
                     // handles the case of one minus and one plus
                     else if (posPlus > 0) {
-                        evaluate(posPlus, "+");
+                        operator = '+';
+                        posOperator =  posPlus;
                     }
                     // handles the case of one minus and one division
                     else if (posDivide > 0) {
-                        evaluate(posDivide, "/");
+                        operator = '/';
+                        posOperator =  posDivide;
                     }
                     // handles the case of one minus and one multiply
                     else if (posMultiply > 0) {
-                        evaluate(posMultiply, "*");
+                        operator = '*';
+                        posOperator =  posMultiply;
                     }
-                    // handles the case of one minus and one exponent
                     else if (posExponent > 0) {
-                        evaluate(posExponent, "^");
+                        operator = '^';
+                        posOperator =  posExponent;
                     }
                 }
                 else {
-                    // evaluates and output the result
-                    evaluate(posMinus,'-');
+                    operator = '-';
+                    posOperator =  posMinus;
                 }
-
             }
             // multiplies the two numbers
             else if (posMultiply > 0) {
-                // evaluates and output the result
-                evaluate(posMultiply,'*');
+                operator = '*';
+                posOperator =  posMultiply;
             }
             else if (posDivide > 0) {
-                // evaluates and output the result
-                evaluate(posDivide,'/');
+                operator = '/';
+                posOperator =  posDivide;
             }
             // multiplies the two numbers
             else if (posExponent > 0) {
-                // evaluates and output the result
-                evaluate(posExponent,'^');
+                operator = '^';
+                posOperator =  posExponent;
             }
+            // evaluates and output the result
+            evaluate(posOperator,operator);
         break;
     }
 }
-
-
 
 // checks for the correct position of operators
 //and calls for the evaluation of the expression
@@ -345,7 +351,9 @@ function writeValues(getValue) {
             // if the operator is '=', the evaluate the expression directly
             if(valueButtonClicked === '=') {
                 // the function takes 'calculate' as parameter to distinguish it from other operator parameters
-                verifyExpression('calculate');
+                if(textBoxObject.value !== "") {
+                    verifyExpression('calculate');
+                }
             }
             else{
                 // checks if expression is not null or empty
@@ -353,12 +361,14 @@ function writeValues(getValue) {
                     retResult = findOperatorPosition(textBoxObject.value, 1);
                 }
                 // if true, the operator is appended to the expression
-                if(retResult && textBoxObject.value !== 'Infinite') {
+                if(retResult && textBoxObject.value !== 'Infinite' && textBoxObject.value !== '') {
                     textBoxObject.value = textBoxObject.value + valueButtonClicked;
                 }
                 // if false, expression is evaluated
-                else{
-                    verifyExpression(valueButtonClicked);
+                else {
+                    if(textBoxObject.value !== '')  {
+                        verifyExpression(valueButtonClicked);
+                    }
                 }
             }
         break;
