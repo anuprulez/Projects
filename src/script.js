@@ -1,8 +1,8 @@
 // creates calculator
 function generateCalculator() {
     'use strict';
-    var classNamesArray = ['clsNumber','clsOperator', 'clsSingleOp', 'clsBack', 'clsClear'];
-    var operatorsArray = ['+', '^', 'sqrt', '-','B', '1/x', '/', '.', 'log', 'C','=', '*'];
+    var classNamesArray = ['clsNumber', 'clsOperator', 'clsSingleOp', 'clsBack', 'clsClear'];
+    var operatorsArray = ['+', '^', 'sqrt', '-', 'B', '1/x', '/', '.', 'log', 'C', '=', '*'];
     var divContainer = document.getElementById('divCalculator');
     // creates result textbox
     var txtResult = document.createElement('input');
@@ -16,7 +16,7 @@ function generateCalculator() {
 }
 // create elements in the calculator
 function createTableElements(numberRange, classNamesArray, operatorsArray, divContainer) {
-    var counter, tableData, min, max, rangeSplit, table, tableRow, classNameNumber, start, end;
+    var counter, tableData, min, max, rangeSplit, table, tableRow, classNameNumber, start, end, firstTableRow, secondTableRow, thirdTableRow, fourthTableRow;
     // creates the table object
     table = document.createElement('table');
     // creates first row of the calculator
@@ -28,7 +28,7 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates first row
     // creates the numbers
     classNameNumber = 'clsButton ' + classNamesArray[0];
-    createNumberButtons(max-2, max, classNameNumber, firstTableRow);
+    createNumberButtons(max - 2, max, classNameNumber, firstTableRow);
 
     // creates buttons of operators for the first row
     start = 0;
@@ -41,7 +41,7 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates the numbers
     secondTableRow = document.createElement('tr');
     classNameNumber = 'clsButton ' + classNamesArray[0];
-    createNumberButtons(max-5, max-3, classNameNumber, secondTableRow);
+    createNumberButtons(max - 5, max - 3, classNameNumber, secondTableRow);
     start = 3;
     end = 5;
     // creates operators
@@ -51,7 +51,7 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates the numbers
     thirdTableRow = document.createElement('tr');
     classNameNumber = 'clsButton ' + classNamesArray[0];
-    createNumberButtons(max-8, max-6, classNameNumber, thirdTableRow);
+    createNumberButtons(max - 8, max - 6, classNameNumber, thirdTableRow);
     start = 6;
     end = 8;
     // creates operators
@@ -61,7 +61,7 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates the numbers
     fourthTableRow = document.createElement('tr');
     classNameNumber = 'clsButton ' + classNamesArray[0];
-    createNumberButtons(max-9, max-9, classNameNumber, fourthTableRow);
+    createNumberButtons(max - 9, max - 9, classNameNumber, fourthTableRow);
     start = 9;
     end = 11;
     // creates operators
@@ -71,9 +71,9 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     divContainer.appendChild(table);
 }
 // creates number buttons
-function createNumberButtons(min, max, classNameNumber, tableRowObj){
+function createNumberButtons(min, max, classNameNumber, tableRowObj) {
     var counter;
-    for(counter = min; counter <= max; counter  = counter + 1){
+    for (counter = min; counter <= max; counter  = counter + 1) {
         tableData = document.createElement('td');
         // creates number buttons
         createTableData(tableData, 'button', classNameNumber, counter, '', tableRowObj);
@@ -81,56 +81,56 @@ function createNumberButtons(min, max, classNameNumber, tableRowObj){
 }
 
 // creates operator buttons
-function createOperatorButtons(start, max, classNames, operatorNames, tableRowObj, tableObj){
+function createOperatorButtons(start, max, classNames, operatorNames, tableRowObj, tableObj) {
     var counter, className;
-    for(counter = start; counter <= max; counter = counter + 1){
+    for (counter = start; counter <= max; counter = counter + 1) {
         tableData = document.createElement('td');
         // creates number buttons
         className = 'clsButton '+ classNames[1];
-        switch(operatorNames[counter]){
+        switch (operatorNames[counter]) {
             case '+':
                 createTableData(tableData, 'button', className, operatorNames[counter], 'Add', tableRowObj);
-                break;
+            break;
             case '^':
                 createTableData(tableData, 'button', className, operatorNames[counter], 'Power', tableRowObj);
-                break;
+            break;
             case '-':
                 createTableData(tableData, 'button', className, operatorNames[counter], 'Subtract', tableRowObj);
-                break;
+            break;
             case '/':
                 createTableData(tableData, 'button', className, operatorNames[counter], 'Divide', tableRowObj);
-                break;
+            break;
             case '.':
                 createTableData(tableData, 'button', className, operatorNames[counter], 'Decimal', tableRowObj);
-                break;
+            break;
             case '=':
                 createTableData(tableData, 'button', className, operatorNames[counter], 'Equals', tableRowObj);
-                break;
+            break;
             case '*':
                 createTableData(tableData, 'button', className, operatorNames[counter], 'Multiply', tableRowObj);
-                break;
+            break;
             case 'sqrt':
             case '1/x':
             case 'log':
                 className = 'clsButton '+ classNames[2];
-                if(operatorNames[counter] === 'sqrt'){
+                if(operatorNames[counter] === 'sqrt') {
                     createTableData(tableData, 'button', className, 'sqrt', 'Square root', tableRowObj);
                 }
-                else if(operatorNames[counter] === '1/x'){
+                else if(operatorNames[counter] === '1/x') {
                     createTableData(tableData, 'button', className, '1/x', 'Reciprocal', tableRowObj);
                 }
-                else{
+                else {
                     createTableData(tableData, 'button', className, 'log', 'Log', tableRowObj);
                 }
             break;
             case 'B':
                 className = 'clsButton '+ classNames[3];
                 createTableData(tableData, 'button', className, 'B', 'Backspace', tableRowObj);
-                break;
+            break;
             case 'C':
                 className = 'clsButton '+ classNames[4];
                 createTableData(tableData, 'button', className, 'C', 'Clear', tableRowObj);
-                break;
+            break;
         }
         // appends the row to the table object
         tableObj.appendChild(tableRowObj);
@@ -138,7 +138,7 @@ function createOperatorButtons(start, max, classNames, operatorNames, tableRowOb
 }
 
 // creates table data- td for the table
-function createTableData(tdObject, elementType, className, value, title, tableRowObject){
+function createTableData(tdObject, elementType, className, value, title, tableRowObject) {
     var inputTag;
     // creates input element
     inputTag = document.createElement('input');
@@ -146,7 +146,7 @@ function createTableData(tdObject, elementType, className, value, title, tableRo
     inputTag.className = className;
     inputTag.value = value;
     inputTag.setAttribute('onclick', 'writeValues(this)');
-    if(title !== ""){
+    if(title !== "") {
         inputTag.title = title;
     }
     // appends input to td
@@ -224,7 +224,7 @@ function findOperatorPosition(expression, caseValue) {
             else {
                 return result;
             }
-            break;
+        break;
         // calls for evaluation of the expression
         case 2:
             // adds two numbers
@@ -278,7 +278,7 @@ function findOperatorPosition(expression, caseValue) {
                 // evaluates and output the result
                 evaluate(posExponent,'^');
             }
-            break;
+        break;
     }
 }
 
@@ -325,7 +325,7 @@ function writeValues(getValue) {
             if(textBoxObject.value.length < 15 && textBoxObject.value !== 'Infinite') {
                 textBoxObject.value = textBoxObject.value + valueButtonClicked;
             }
-            break;
+        break;
         // this case block handles the operator input
         case "clsButton clsOperator":
             // if the operator is '=', the evaluate the expression directly
@@ -347,18 +347,18 @@ function writeValues(getValue) {
                     verifyExpression(valueButtonClicked);
                 }
             }
-            break;
+        break;
         case "clsButton clsClear":
             // clears the result text box
             textBoxObject.value = "";
-            break;
+        break;
         case "clsButton clsBack":
             // acts as backspace button
             stringLength = textBoxObject.value.length;
             if(stringLength > 0) {
                 textBoxObject.value = textBoxObject.value.substring(0, stringLength - 1);
             }
-            break;
+        break;
         // this case checks for operators- square root, reciprocal and log
         case "clsButton clsSingleOp":
             if(valueButtonClicked === 'sqrt') {
@@ -379,7 +379,7 @@ function writeValues(getValue) {
                     textBoxObject.value = Math.log(parseFloat(textBoxObject.value)) ;
                 }
             }
-            break;
+        break;
     }
 }
 
