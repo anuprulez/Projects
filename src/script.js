@@ -1,7 +1,6 @@
 // creates calculator
-
 function generateCalculator() {
-    "use strict";
+    'use strict';
     var classNamesArray = ['clsNumber','clsOperator', 'clsSingleOp', 'clsBack', 'clsClear'];
     var operatorsArray = ['+', '^', 'sqrt', '-','B', '1/x', '/', '.', 'log', 'C','=', '*'];
     var divContainer = document.getElementById('divCalculator');
@@ -17,7 +16,6 @@ function generateCalculator() {
 }
 // create elements in the calculator
 function createTableElements(numberRange, classNamesArray, operatorsArray, divContainer) {
-    "use strict";
     var counter, tableData, min, max, rangeSplit, table, tableRow, classNameNumber, start, end;
     // creates the table object
     table = document.createElement('table');
@@ -74,9 +72,8 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
 }
 // creates number buttons
 function createNumberButtons(min, max, classNameNumber, tableRowObj){
-    "use strict";
     var counter;
-    for(counter = min; counter <= max; counter = counter + 1){
+    for(counter = min; counter <= max; counter  = counter + 1){
         tableData = document.createElement('td');
         // creates number buttons
         createTableData(tableData, 'button', classNameNumber, counter, '', tableRowObj);
@@ -85,7 +82,6 @@ function createNumberButtons(min, max, classNameNumber, tableRowObj){
 
 // creates operator buttons
 function createOperatorButtons(start, max, classNames, operatorNames, tableRowObj, tableObj){
-    "use strict";
     var counter, className;
     for(counter = start; counter <= max; counter = counter + 1){
         tableData = document.createElement('td');
@@ -143,7 +139,6 @@ function createOperatorButtons(start, max, classNames, operatorNames, tableRowOb
 
 // creates table data- td for the table
 function createTableData(tdObject, elementType, className, value, title, tableRowObject){
-   "use strict";
     var inputTag;
     // creates input element
     inputTag = document.createElement('input');
@@ -163,7 +158,6 @@ function createTableData(tdObject, elementType, className, value, title, tableRo
 
 // actually evaluates the expression and output the result
 function evaluate(posOperator, operatorType) {
-    "use strict";
     var textBoxObject = document.getElementById('txtResult');
     var resultLength =  textBoxObject.value.length;
     var evaluatedExponentNumber;
@@ -205,7 +199,6 @@ function evaluate(posOperator, operatorType) {
 // it takes two parametes, first being the mathematical operator and second being the caseValue as position of
 // operators are needed for different purposes
 function findOperatorPosition(expression, caseValue) {
-    "use strict";
     //alert(expression);
     //var operatorRegex = "/[+-*\/.]/";
     //var result = operatorRegex.test(expression);
@@ -294,7 +287,6 @@ function findOperatorPosition(expression, caseValue) {
 // checks for the correct position of operators
 //and calls for the evaluation of the expression
 function verifyExpression(operator) {
-    "use strict";
     var textBoxObject = document.getElementById('txtResult');
     // takes the length of the expression to be evaluated
     var resultLength =  textBoxObject.value.length;
@@ -318,7 +310,6 @@ function verifyExpression(operator) {
 // on the calculator is clicked and
 // performs appropriate/ intended actions
 function writeValues(getValue) {
-    "use strict";
     var valueButtonClicked = getValue.value;
     // gets the object of result text box
     var textBoxObject = document.getElementById('txtResult');
