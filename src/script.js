@@ -10,6 +10,8 @@ function generateCalculator() {
     txtResult.type = 'text';
     txtResult.maxLength = 15;
     txtResult.id = 'txtResult';
+    // disables the keypress events
+    txtResult.setAttribute('onkeypress', 'return false;');
     // appends the textbox to the div
     divContainer.appendChild(txtResult);
     // creates buttons in the calculator
@@ -148,6 +150,7 @@ function createTableData(tdObject, elementType, className, value, title, tableRo
     inputTag.className = className;
     inputTag.value = value;
     inputTag.setAttribute('onclick', 'writeValues(this)');
+
     // assigns title to operator tds
     title !== "" ? (inputTag.title = title): "";
     // appends input to td
