@@ -64,7 +64,7 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
 }
 
 
-// creates number buttons
+// creates number buttons by looping through the numbers
 function createNumberButtons(min, max, classNameNumber, tableRowObj) {
     var counter;
     for (counter = min; counter <= max; counter  = counter + 1) {
@@ -150,9 +150,8 @@ function createTableData(tdObject, elementType, className, value, title, tableRo
     inputTag.className = className;
     inputTag.value = value;
     inputTag.setAttribute('onclick', 'writeValues(this)');
-    if(title !== "") {
-        inputTag.title = title;
-    }
+    // assigns title to operator tds
+    title !== "" ? (inputTag.title = title): "";
     // appends input to td
     tdObject.appendChild(inputTag);
     // appends td to table row
