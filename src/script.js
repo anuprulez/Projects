@@ -41,7 +41,6 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates second table row
     // creates the numbers
     secondTableRow = document.createElement('tr');
-    classNameNumber = 'clsButton ' + classNamesArray[0];
     createNumberButtons(max - 5, max - 3, classNameNumber, secondTableRow);
     start = 3;
     end = 5;
@@ -51,7 +50,6 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates third table row
     // creates the numbers
     thirdTableRow = document.createElement('tr');
-    classNameNumber = 'clsButton ' + classNamesArray[0];
     createNumberButtons(max - 8, max - 6, classNameNumber, thirdTableRow);
     start = 6;
     end = 8;
@@ -61,7 +59,6 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates fourth table row
     // creates the numbers
     fourthTableRow = document.createElement('tr');
-    classNameNumber = 'clsButton ' + classNamesArray[0];
     createNumberButtons(max - 9, max - 9, classNameNumber, fourthTableRow);
     start = 9;
     end = 11;
@@ -114,10 +111,10 @@ function createOperatorButtons(start, max, classNames, operatorNames, tableRowOb
             case '1/x':
             case 'log':
                 className = 'clsButton ' + classNames[2];
-                if(operatorNames[counter] === 'sqrt') {
+                if (operatorNames[counter] === 'sqrt') {
                     createTableData(tableData, 'button', className, 'sqrt', 'Square root', tableRowObj);
                 }
-                else if(operatorNames[counter] === '1/x') {
+                else if (operatorNames[counter] === '1/x') {
                     createTableData(tableData, 'button', className, '1/x', 'Reciprocal', tableRowObj);
                 }
                 else {
