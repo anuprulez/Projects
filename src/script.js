@@ -17,6 +17,8 @@ function generateCalculator() {
     // creates buttons in the calculator
     createTableElements('0-9', classNamesArray, operatorsArray, divContainer);
 }
+
+
 // create elements in the calculator
 function createTableElements(numberRange, classNamesArray, operatorsArray, divContainer) {
     var counter, tableData, min, max, rangeSplit, table, classNameNumber, start, end, firstTableRow, secondTableRow, thirdTableRow, fourthTableRow;
@@ -32,10 +34,8 @@ function createTableElements(numberRange, classNamesArray, operatorsArray, divCo
     // creates first row
     // creates first row of the calculator
     firstTableRow = document.createElement('tr');
-    // creates the numbers
     classNameNumber = 'clsButton ' + classNamesArray[0];
     createNumberButtons(max - 2, max, classNameNumber, firstTableRow);
-    // creates buttons of operators for the first row
     // creates operators
     createOperatorButtons(start, end, classNamesArray, operatorsArray, firstTableRow, table);
 
@@ -170,7 +170,7 @@ function evaluate(posOperator, operatorType) {
     firstNumber =  textBoxObject.value.substring(0, posOperator);
     // takes the right part of the string i.e. the second number
     secondNumber = textBoxObject.value.substring(posOperator + 1, resultLength);;
-    if(!isNaN(firstNumber) && secondNumber !== ''){
+    if(!isNaN(firstNumber) && secondNumber !== '') {
         // checks for the operator and performs appropriate actions
         switch(operatorType) {
             case '/':
@@ -179,7 +179,7 @@ function evaluate(posOperator, operatorType) {
                         resultNumber = parseFloat(firstNumber) / parseFloat(secondNumber);
                     }
                 }
-                else{
+                else {
                     resultNumber = 'Infinite';
                 }
             break;
@@ -258,7 +258,7 @@ function findOperatorPosition(expression, caseValue) {
             // the below code handles this situation
             else if (posMinus >=0) {
                 // if the expression starts with a negative number and followed by some other operator
-                if(posMinus == 0) {
+                if(posMinus === 0) {
                     // handles the case of two minus
                     if (lastIndexMinus > 0) {
                         operator = '-';
