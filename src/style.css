@@ -8,17 +8,23 @@
     border-color:black;
 }
 /*result textbox*/
+
 #txtResult
 {
     width:90%;
     padding-left:2px;
     margin-left:5px;
     margin-top:1px;
-    border-color:#C0C0C0;
+    border-color:#808080;
 }
 /*class for all buttons*/
 .clsButton
 {
     width:40px;
     background-color: #C0C0C0;
+}
+ /* color change on cursor hover*/
+.clsButton:hover{
+    border-color: #808080;
+    background-color: #808080;
 }
