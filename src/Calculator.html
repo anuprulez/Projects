@@ -8,13 +8,25 @@
 </head>
 <body>
 Simple Calculator
+
 <div id="divCalculator">
 </div>
+<div id="divCloneCalc"></div>
 <script type="text/javascript">
     $(document).ready(function() {
         // creates the calculator
-        generateCalculator();
+        generateCalculator(this);
     });
 </script>
+<br/>
+Enter numbers(comma separated):
+<input type="text" value="" id="txtNumber"/>
+<br/>
+Enter operators:
+<input type="text" value="" id="txtOperator"/>
+<br/>
+
+<input type="button" class="clsButton" onclick="generateCalculator(this)" value="new"/>
+
 </body>
 </html>
