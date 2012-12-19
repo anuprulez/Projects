@@ -16,9 +16,9 @@ function getButtonClickedValue(btnClickValue) {
     var txtbxObj = document.getElementById('txtResult');
     if(btnClickValue !== null){
         // instantiates the ExpressionEvaluate class
-        var getValue = new ExpressionEvaluate(txtbxObj, btnClickValue.value, btnClickValue.className);
+        var getValue = new ExpressionEvaluate(txtbxObj, btnClickValue);
         // calls distinguishButtonClick method to check and evaluate the expression
-        getValue.distinguishButtonClick(btnClickValue.className, function(buttonName){
+        getValue.distinguishButtonClick(btnClickValue, function(buttonName){
             console.log('Button clicked: ' + buttonName);
         });
     }
