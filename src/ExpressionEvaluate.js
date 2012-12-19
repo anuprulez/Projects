@@ -1,9 +1,9 @@
     // ExpressionEvaluate class
-    function ExpressionEvaluate(txtBoxObj, valueButton, buttonClassName) {
+    function ExpressionEvaluate(txtBoxObj, clickedValue) {
           //----------Private variables ------//
-          var valueButtonClicked = valueButton;  // value of the button clicked
+          var valueButtonClicked = clickedValue.value;  // value of the button clicked
           var textBoxObject = txtBoxObj;   // gets the object of result text box
-          var className = buttonClassName;  // gets the CSS class name of the object/button clicked
+          var className = clickedValue.className;  // gets the CSS class name of the object/button clicked
           var stringLength = 0;   //
           var retResult = false;
 
@@ -199,7 +199,7 @@
           // distinguishes the button clicks and verify expression
           this.distinguishButtonClick = function(btnClass, callback) {
                 var singleOpResult;
-                switch (btnClass) {
+                switch (btnClass.className) {
                   // this case block handles all the number inputs
                   case "clsButton clsNumber":
                       // appends the numbers
