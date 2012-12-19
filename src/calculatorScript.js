@@ -513,32 +513,4 @@ function getButtonClickedValue(btnClickValue) {
     }
 } // getButtonClickedValue function ends
 
-function myFunc(){
-    alert('in');
-    var opArray = ['+', '^', 'sqrt', '-', 'B', '1/x', '/', '.', 'log', 'C', '=', '*'];
-    var numArray = [0, 1, 2, 3, 4, 5];
-    var classArray = ['clsNumber', 'clsOperator', 'clsSingleOp', 'clsBack', 'clsClear'];
-    var divContainer = document.getElementById('divCalculator');
-
-    Suan.prototype = new calculator(classArray, opArray, numArray, divContainer);
-      // changing the prototupe constructor of the child class of child class type
-    Suan.prototype.constructor = Suan;
-    Suan.prototype.baseClass = calculator.prototype.constructor;
-
-     function Suan(){
-         this.func = function(){
-             alert('hello');
-         }
-     }
-
-      var myObj = new Suan();
-      myObj.func();
-      myObj.createCalculator();
-    // instantiates the calculator class
-    //var newCalculator = new calculator(classArray, opArray, numArray, divContainer);
-    // calls the function to create calculator
-    //newCalculator.createCalculator();
-}
-
-
 ///////////// Calculator code ends /////////////////////////////////////////////////////////////////////////////////
