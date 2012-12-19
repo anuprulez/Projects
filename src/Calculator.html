@@ -3,30 +3,20 @@
 <head>
     <title>My Calculator</title>
     <script type="text/javascript" src="calculatorScript.js"></script>
+    <script type="text/javascript" src="CalculatorClass.js"></script>
+    <script type="text/javascript" src="ExpressionEvaluate.js"></script>
     <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 Simple Calculator
-
-<div id="divCalculator">
-</div>
-<div id="divCloneCalc"></div>
+<div id="divCalculator"></div>
 <script type="text/javascript">
     $(document).ready(function() {
-        // creates the calculator
+        //creates the calculator
         generateCalculator(this);
     });
 </script>
 <br/>
-Enter numbers(comma separated):
-<input type="text" value="" id="txtNumber"/>
-<br/>
-Enter operators:
-<input type="text" value="" id="txtOperator"/>
-<br/>
-
-<input type="button" class="clsButton" onclick="generateCalculator(this)" value="new"/>
-
 </body>
 </html>
