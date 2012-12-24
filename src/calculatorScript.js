@@ -2,11 +2,10 @@
 function generateCalculator(parameter) {
     var container = document.getElementById('divCalculator');
     // instantiates the calculator class
-    var newCalculator = new Calculator(container);
-    // calls the function to create calculator
-    newCalculator.createCalculator(function(){
+    var newCalculator = new Calculator(container, function(){
         console.log('Calculator created successfully');
     });
+
 } // End of generateCalculator function
 
 
