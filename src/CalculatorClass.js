@@ -1,5 +1,5 @@
     // Calculator class
-    function Calculator(container) {
+    function Calculator(container, callback) {
         /*------------------------------Private variables ----------------------*/
         var classNames = ['clsNumber', 'clsOperator', 'clsSingleOp', 'clsBack', 'clsClear']; // set of class names
         var operators = ['+', '^', 'sqrt', '-', 'B', '1/x', '/', '.', 'log', 'C', '=', '*']; // set of operators
@@ -200,7 +200,7 @@
         //------------------------- Public methods --------------------------------//
 
         // this method creates the result textbox and calculator
-        this.createCalculator = function(callback) {
+        (function() {
               // create result textbox
               txtResult = document.createElement('input');
               txtResult.type = 'text';
@@ -214,7 +214,7 @@
                 console.log('function createTableElements() executed successfully');
               });
               callback();
-        }  // end of createCalculator
+        })();  // end of createCalculator
     } // end of class
 
  ///////////////////////////////////////// End of Calculator Class ////////////////////////////////////////////////////////////
